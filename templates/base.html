@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Titillium Web", sans-serif;
+        /*   border: 1px solid red; */
+      }
+
+      body {
+        background: #031016;
+        color: #8eabb3;
+        margin: 0;
+        padding: 0;
+      }
+
+      #container {
+        width: 420px;
+        padding: 10px;
+        margin: -10px auto;
+        background: #080d13;
+        border: #14417c 1px solid;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 0px 20px 1px rgba(20, 65, 124, 0.8);
+        -moz-box-shadow: 0px 0px 20px 1px rgba(20, 65, 124, 0.8);
+        box-shadow: 0px 0px 20px 1px rgba(20, 65, 124, 0.8);
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+        font-size: 3em;
+        font-family: "Amaranth", sans-serif;
+      }
+
+      input {
+        width: 60%;
+        padding: 1px 5px;
+        background: #080d13;
+        color: #60fffa;
+        border: 1px solid #60fffa;
+      }
+
+      .button {
+        text-decoration: none;
+        background-color: green;
+        color: white;
+        border: 1px solid white;
+        font-weight: bold;
+        font-size: 1rem;
+
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .button:hover {
+        box-shadow: 0 0 3px #60fffa, inset 0 0 10px #fff, inset 0 0 10px #fff,
+          inset 0 0 0 #fff;
+      }
+
+      .task {
+        box-sizing: border-box;
+        cursor: pointer;
+        list-style: none;
+        padding: 10px;
+        margin: 10px 15px;
+        color: #60fffa;
+        border: 2px solid #60fffa;
+        border-radius: 10px;
+        text-align: left;
+        transition: text-shadow 0.2s, box-shadow 0.2s;
+      }
+
+      .task:hover {
+        /*   text-shadow: 0px 0px 5px rgba(0, 177, 202, 1); */
+        text-shadow: 0 0 10px #00aace, 0 0 6px #00aace;
+        box-shadow: 0px 0px 2px 1px #00aace;
+      }
+      .update {
+        background-color: #60fffa;
+        color: #005baf;
+        border: 1px solid #005baf;
+      }
+      .delete {
+        background-color: red;
+        color: white;
+        border: 1px solid white;
+      }
+      .complete {
+        color: #bd3aa5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Flask Todo List</h1>
+
+    <div class="glass" id="container">
+      <form action="/add" method="post">
+        <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Add New Todo.."
+            class="task"
+          />
+
+          <button type="submit" class="button">Add</button>
+        </div>
+      </form>
+
+      {%for todo in todo_list%}
+
+      <p class="task">{{todo.title}}</p>
+
+      {% if todo.complete == False %}
+      <span class="complete">Not Completed</span>
+      {% else %}
+      <span class="complete">Completed</span>
+      {% endif %}
+
+      <a href="/update/{{todo.id}}" class="button update">Update</a>
+      <a href="/delete/{{todo.id}}" class="button delete">Delete</a>
+      {% endfor %}
+    </div>
+  </body>
+</html>
